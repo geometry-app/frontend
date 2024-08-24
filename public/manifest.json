@@ -1,0 +1,10 @@
+{
+  "short_name": "Geometry App",
+  "name": "Geometry App frontend",
+  "icons": [
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

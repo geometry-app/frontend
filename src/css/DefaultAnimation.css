@@ -1,0 +1,25 @@
+.fadeInFromDown {
+    animation: fade-in-from-down-anim;
+    animation-duration: .350s;
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+.animated {
+    transition: ease all .5s;
+}
+
+.animated-fast {
+  transition: ease all .1s;
+}
+
+@keyframes fade-in-from-down-anim {
+    from {
+      transform: scale(0);
+      transform: translate(0px, 20px);
+    }
+    to {
+      opacity: 1;
+    }
+}

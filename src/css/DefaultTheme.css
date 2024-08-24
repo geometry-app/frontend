@@ -1,0 +1,139 @@
+.accent {
+    color: red;
+}
+
+.depth1 {
+    background-color: #fff;
+}
+
+.ec {
+    margin: 8px 0px;
+}
+
+.rounded {
+    border-radius: 14px;
+}
+
+.rounded:hover {
+    border-radius: 7px;
+}
+
+.rounded:focus-within {
+    border-radius: 7px;
+}
+
+.transitioned {
+    transition: ease all .2s;
+}
+
+.shadowed {
+    box-shadow: 0 4px 12px rgba(8, 27, 78, 0.1);
+}
+
+.shadowed-filter {
+    filter: drop-shadow(0 2px 6px rgba(8, 27, 78, 0.1));
+}
+
+.shadowed:hover {
+    box-shadow: 0 12px 12px rgba(8, 27, 78, 0.1);
+}
+
+.shadowed:focus-within {
+    box-shadow: 0 12px 12px rgba(8, 27, 78, 0.1);
+}
+
+.plate {
+    box-shadow: 0 2px 6px rgba(8, 27, 78, 0.08);
+    background-color: white;
+    padding: 12px 8px;
+}
+
+.plate:hover {
+    box-shadow: 0 6px 10px rgba(8, 27, 78, 0.08);
+}
+
+.id-span {
+    color: #009718;
+}
+
+.center {
+    justify-content: center;
+}
+
+.inputCursor {
+    cursor: text;
+}
+
+.button {
+    background-color: #f8f9fa;
+    min-width: 120px;
+    min-height: 42px;
+    align-items: center;
+    padding: 0 10px;
+    user-select: none;
+}
+
+.buttonText {
+    margin: 0;
+    text-align: center;
+    cursor: default;
+    color: #0f1f38;
+}
+
+.button:hover {
+    transform: scale(101%);
+}
+
+.button:active {
+    transform: scale(99%);
+    transition: ease all .2s;
+}
+
+input {
+    outline: none;
+    border: none;
+    background: none;
+    min-height: 36px;
+    align-items: center;
+    font: inherit;
+    width: 100%;
+    padding: 0 12px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.hint {
+    cursor: text;
+    margin: 12px 12px 2px;
+    font-size: 14px;
+    user-select: none;
+}
+
+.border-default {
+    border: 2px solid #f7f9ff;
+}
+
+.border {
+    border: 2px solid #f7f9ff;
+}
+
+.border:hover {
+    border: 2px solid #85d2ff;
+}
+
+.border:focus-within {
+    border: 2px solid #85d2ff;
+}
+
+.border-red {
+    border: 2px solid #FFE5DE;
+}
+
+.border-red:hover {
+    border: 2px solid #FF9EA2;
+}
+
+.border-red:focus-within {
+    border: 2px solid #FF9EA2;
+}

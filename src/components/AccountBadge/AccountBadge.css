@@ -1,0 +1,10 @@
+.accountBlank {
+    position: fixed;
+    top: 0;
+    background-color: #ffffff;
+    height: 60px;
+    box-shadow: 0 0 12px rgba(1, 2, 16, 0.1);
+    right: 0;
+    border-bottom-left-radius: 30px;
+    padding: 0 30px;
+}

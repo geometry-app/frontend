@@ -1,0 +1,39 @@
+name: Publish frontend to s3
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22.x]
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
+      with:
+        repository: 'Folleach/upload-s3-action'
+        ref: 'features/path-style-dist'
+        path: ./s3-upload
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: './package-lock.json'
+    - name: Build static files
+      run: |
+        npm ci
+        CI=false
+        npm run build
+    - uses: ./s3-upload
+      with:
+        aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+        aws_bucket: geometry-app
+        source_dir: ./build
+        destination_dir: .
+        endpoint: https://s3.folleach.net/
+        force_path_style: true
