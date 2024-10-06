@@ -1,12 +1,12 @@
 import React, {CSSProperties, useEffect, useState} from 'react';
-import Text, {TextStyle} from '../../components/Text.tsx';
-import {Button, ButtonStyle} from '../../components/Button.tsx';
-import {useRoulette} from '../../contexts/RouletteContext.tsx';
-import {get} from '../../Backbone.tsx';
-import {IRoulettePreview} from '../../server/Contracts.tsx';
-import {RouletteItem} from '../../components/Roulette/RouletteItem.tsx';
-import {useNavigate} from 'react-router-dom';
-import {Plate, PlateStyle} from "../../components/Plate.tsx";
+import { useRoulette } from '../../context/RouletteContext';
+import { useNavigate } from 'react-router-dom';
+import { get } from '../../server/Backbone';
+import { Plate, PlateStyle } from '../../components/Plate';
+import Text, { TextStyle } from '../../components/Text/Text';
+import { RouletteItem } from '../../components/Roulette/RouletteItem';
+import { Button, ButtonStyle } from '../../components/Button';
+import { IRoulettePreview } from '../../services/roulette/models';
 
 interface IMainRouletteSubpageProps {
 

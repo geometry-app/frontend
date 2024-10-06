@@ -1,19 +1,19 @@
 import React from 'react';
-import { getDemonDifficultyImage } from '../Utils/LevelUtils.tsx';
-import { Plate } from './Plate.tsx';
-import { Text, TextStyle } from './Text.tsx';
-import { HighlightedString, SearchItemContract } from '../server/Contracts.tsx';
-import { HighlightText, toDefaultText } from './HighlightText.tsx';
-import { ReactComponent as CopySvg } from '../svgs/copy.svg';
-import { ReactComponent as LockSvg } from '../svgs/lock.svg';
-import Badge, { BadgeComponent } from './Badge.tsx';
+import { SearchItem } from '../services/search/models';
+import { Plate } from './Plate';
+import { getDemonDifficultyImage } from '../common/LevelHelper';
+import Text, { TextStyle } from './Text/Text';
+import { HighlightText, toDefaultText } from './HighlightText';
+import LockSvg from '../svgs/lock.svg';
+import BadgeComponent from './Badge/BadgeComponent';
+import { LengthType } from '../services/models';
 
 interface ILevelProps {
-    level: SearchItemContract,
+    level: SearchItem,
     percent?: number
 }
 
-const Level: React.FC<ILevelProps> = p => {
+export default function Level(p: ILevelProps) {
     return <div>
         <Plate>
             <div style={{display: "grid", gridTemplateColumns: "76px auto"}}>
@@ -47,12 +47,10 @@ const Level: React.FC<ILevelProps> = p => {
                             {p.level.badges.map((x, i) => <BadgeComponent badge={x}/>)}
                         </div>
                     }
+                    <p>likes: {p.level.likes}</p>
+                    <p>length: {LengthType[p.level.length]}</p>
                 </div>
             </div>
         </Plate>
     </div>
-}
-
-export {
-    Level
 }

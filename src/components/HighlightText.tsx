@@ -1,5 +1,5 @@
 import React from "react";
-import { HighlightedString } from "../server/Contracts";
+import { HighlightedString } from "../services/models";
 
 interface IHighlightedTextProps {
     text?: HighlightedString

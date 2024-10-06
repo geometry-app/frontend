@@ -1,7 +1,7 @@
 import React from "react";
-import {post} from "../../Backbone.tsx";
-import {useRoulette} from "../../contexts/RouletteContext.tsx";
-import {Button, ButtonStyle} from "../Button.tsx";
+import { useRoulette } from "../../context/RouletteContext";
+import { post } from "../../server/Backbone";
+import { Button, ButtonStyle } from "../Button";
 
 export interface ICopyRouletteProps {
 

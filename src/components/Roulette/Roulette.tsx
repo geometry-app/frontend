@@ -1,7 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { Action } from '../../dotNetFeatures';
-import { HighlightedString } from '../../server/Contracts';
-import { ContentPath } from '../../Constants.tsx';
+import { HighlightedString } from '../../services/models';
 
 export interface IRouletteSegment {
     text?: HighlightedString,
@@ -12,7 +10,7 @@ export interface IRouletteProps {
     radius: number,
     segments: IRouletteSegment[],
     manager: RollManager,
-    onComplite: Action<string | any>
+    onComplite: (value: string | any) => void
 }
 
 export interface RollManager {

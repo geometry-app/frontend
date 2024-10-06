@@ -1,0 +1,31 @@
+.hlop {
+    overflow: hidden;
+}
+
+.App {
+    text-align: center;
+}
+
+.main-container {
+    margin: 0 6px;
+    padding: 12px;
+    transition: ease all .5s;
+}
+
+.headHolder {
+    height: 60px;
+    transition: ease all .5s;
+}
+
+@media (min-width: 768px) {
+    .main-container {
+        margin: 0 120px;
+        transition: ease all .5s;
+    }
+}
+
+.page {
+    position: absolute;
+    width: 100wh;
+    height: 100vh;
+}

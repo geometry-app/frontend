@@ -1,7 +1,7 @@
 import React from "react";
-import {Plate, PlateStyle} from "../../components/Plate.tsx";
-import Text, {TextStyle} from "../../components/Text.tsx";
-import {Button} from "../../components/Button.tsx";
+import {Plate, PlateStyle} from "../../components/Plate";
+import Text, {TextStyle} from "../../components/Text/Text";
+import {Button} from "../../components/Button";
 import {useNavigate} from "react-router";
 
 export const NotFoundSubpage: React.FC = () => {

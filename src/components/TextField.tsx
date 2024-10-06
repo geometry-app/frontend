@@ -1,20 +1,19 @@
 import React, { useState } from "react";
-import Constants from '../Constants.tsx';
-import { Action, Func } from '../dotNetFeatures.tsx';
+import constants from "../constants";
 
 interface ITextFieldProps {
     hint?: string,
     children?: string,
-    onChange?: Action<string>,
-    filter?: Func<string, boolean>
-    apply?: Action<string>
+    onChange?: (value: string) => void,
+    filter?: (value: string) => boolean
+    apply?: (value: string) => void
 }
 
 const TextField: React.FC<ITextFieldProps> = p => {
     const [state, setState] = useState(p.children ?? "");
     let input: HTMLInputElement | null;
     return <div className={`shadowed transitioned rounded hlop ec inputCursor ${p.filter && !p.filter(state) ? "border-red" : "border"}`} onClick={() => input?.focus()}>
-        { p.hint && <p className="hint" style={{ color: Constants.colors.almostBlack }}>{p.hint}</p> }
+        { p.hint && <p className="hint" style={{ color: constants.colors.almostBlack }}>{p.hint}</p> }
         <div style={{margin: "6px 4px"}}>
             <input
                 type="text"

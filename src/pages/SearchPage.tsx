@@ -1,41 +1,47 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
-import {FadeInFromDown} from '../components/Animations/FadeInFromDown.tsx';
-import SearchItem from '../components/SearchItem.tsx';
-import {TextField} from '../components/TextField.tsx';
-import {useLanguage} from '../contexts/LagnuageContext.tsx';
-import {SearchItemContract, SearchResult} from '../server/Contracts.tsx';
-import {Search} from '../server/GeometryAppClient.ts';
-import {Level} from "../components/Level.tsx";
-import {ReactComponent as BackSvg} from '../svgs/back.svg';
-import {ButtonSquare, ButtonSquareStyle} from "../components/ButtonSquare.tsx";
-import Text, {TextStyle} from "../components/Text.tsx";
+import AdvanceInput from '../components/AdvanceInput/AdvanceInput';
+import { SearchItem, SearchResult } from '../services/search/models';
+import { useSearch } from '../context/SearchContext';
+import { buildQuery, parseQuery } from '../services/search/QueryBuilder';
+import Level from '../components/Level';
+import { FadeInFromDown } from '../components/Animations/FadeInFromDown';
+import { TextField } from '../components/TextField';
+import Text, { TextStyle } from '../components/Text/Text';
+import SearchItemComponent from '../components/SearchItemComponent';
+import BackSvg from '../svgs/back.svg';
+import { ButtonSquare, ButtonSquareStyle } from '../components/ButtonSquare';
 
 const SearchPage: React.FC = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
-    const { getLang } = useLanguage();
-    const [query, setQuery] = useState(searchParams.get('query') ?? '');
-    const [isLucky, setIsLucky] = useState(searchParams.get("lucky") === "1");
-    const [page, setPage] = useState(0);
-    const [result, setResult] = useState<SearchResult>();
+    const search = useSearch();
+    const [state, setState] = useState({
+        query: parseQuery(searchParams.get('query') ?? ''),
+        isLucky: searchParams.get("lucky") === "1",
+        page: Number.parseInt(searchParams.get("page") ?? "0")
+    });
+    const [result, setResult] = useState<SearchResult | undefined>();
 
-    console.log('render');
     useEffect(() => {
-        Search(query, page, isLucky)
+        search
+            .search(state.query, state.isLucky, state.page)
             .then(x => setResult(x))
-            .catch(x => console.error(x))
+            .catch(e => console.error("failed to search", e));
     }, [searchParams])
 
+    useEffect(() => {
+        changeQuery(buildQuery(state.query));
+    }, [state])
+
     function changeQuery(query: string) {
-        navigate('/search?' + new URLSearchParams({ query, page: page.toString() }));
+        navigate('/search?' + new URLSearchParams({ query, page: state.page.toString() }));
     }
 
-    function renderPreviewItem(item: SearchItemContract): React.ReactNode {
-        console.log(item);
+    function renderPreviewItem(item: SearchItem): React.ReactNode {
         if (item.type === 1)
             return <Level level={item}/>
-        return <SearchItem item={item} />
+        return <SearchItemComponent item={item} />
     }
 
     return <div className="main-container">
@@ -47,9 +53,11 @@ const SearchPage: React.FC = () => {
                         icon={<BackSvg stroke='#000' width={40} height={40} style={{display: "block", margin: 'auto'}}></BackSvg>}
                         onClick={e => navigate('/')}
                     />
-                    <div id="search-box" className="animated">
-                        <TextField children={query} onChange={text => setQuery(text)} apply={() => changeQuery(query)}></TextField>
-                    </div>
+                    <AdvanceInput submit={x => setState({
+                        isLucky: state.isLucky,
+                        page: state.page,
+                        query: x
+                    })} prepend={state.query} />
                 </div>
             </FadeInFromDown>
             <div style={{ display: 'grid', gap: "12px", margin: "32px 16px 0 16px", wordBreak: 'break-all' }}>

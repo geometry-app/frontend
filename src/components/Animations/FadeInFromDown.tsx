@@ -1,4 +1,5 @@
 import React from 'react';
+import './animations.css';
 
 interface FadeInFromDownProps {
     children: React.ReactNode,

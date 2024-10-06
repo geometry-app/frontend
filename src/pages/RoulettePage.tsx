@@ -1,19 +1,19 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {TextField} from '../components/TextField.tsx';
-import {Button, ButtonStyle} from '../components/Button.tsx';
-import {Text, TextStyle} from '../components/Text.tsx';
-import {IRouletteSegment, Roulette} from '../components/Roulette/Roulette.tsx';
-import {RouletteState, useRoulette} from '../contexts/RouletteContext.tsx';
-import {Level} from '../components/Level.tsx';
-import {getDemonDifficultyImage} from '../Utils/LevelUtils.tsx';
-import {toDefaultText} from '../components/HighlightText.tsx';
-import {MainRouletteSubpage} from './Roulette/MainRouletteSubpage.tsx';
-import {CreatingNewRouletteSubpage} from './Roulette/CreatingNewRouletteSubpage.tsx';
-import {FinishRouletteSubpage} from "./Roulette/FinishRouletteSubpage.tsx";
-import {NotFoundSubpage} from "./Roulette/NotFoundSubpage.tsx";
-import {PrepareToStartSubpage} from "./Roulette/PrepareToStartSubpage.tsx";
-import {CopyRouletteComponent} from "../components/Roulette/CopyRouletteComponent.tsx";
+import { RouletteState, useRoulette } from '../context/RouletteContext';
+import { IRouletteSegment, Roulette } from '../components/Roulette/Roulette';
+import { getDemonDifficultyImage } from '../common/LevelHelper';
+import { Button } from '../components/Button';
+import Text, { TextStyle } from '../components/Text/Text';
+import { TextField } from '../components/TextField';
+import { toDefaultText } from '../components/HighlightText';
+import Level from '../components/Level';
+import { CopyRouletteComponent } from '../components/Roulette/CopyRouletteComponent';
+import { MainRouletteSubpage } from './Roulette/MainRouletteSubpage';
+import { CreatingNewRouletteSubpage } from './Roulette/CreatingNewRouletteSubpage';
+import { FinishRouletteSubpage } from './Roulette/FinishedRouletteSubpage';
+import { NotFoundSubpage } from './Roulette/NotFoundSubpage';
+import { PrepareToStartSubpage } from './Roulette/PrepareToStartSubpage';
 
 enum ViewRouletteState {
     Rolling,
@@ -23,7 +23,7 @@ enum ViewRouletteState {
 const RoulettePage: React.FC = () => {
     const [viewState, setViewState] = useState<ViewRouletteState>(ViewRouletteState.Rolling);
     console.debug("VIEW STATE: " + viewState);
-    
+
     const roulette = useRoulette();
     const navigate = useNavigate();
     const state = roulette.getState();

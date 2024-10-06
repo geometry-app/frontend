@@ -1,26 +1,22 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {FadeInFromDown} from '../components/Animations/FadeInFromDown.tsx';
-import {TextField} from '../components/TextField.tsx';
-import {useLanguage} from '../contexts/LagnuageContext.tsx';
-import {ButtonSquare} from '../components/ButtonSquare.tsx';
-import {ReactComponent as RouletteSvg} from '../svgs/roulette.svg';
-import Text, {TextStyle} from "../components/Text.tsx";
-import {ReactComponent as GithubMark} from '../svgs/github-mark.svg';
-import {Button, ButtonStyle} from "../components/Button.tsx";
+import { FadeInFromDown } from '../components/Animations/FadeInFromDown';
+import AdvanceInput from '../components/AdvanceInput/AdvanceInput';
+import { buildQuery } from '../services/search/QueryBuilder';
+import { Button, ButtonStyle } from '../components/Button';
+import { ButtonSquare, ButtonSquareStyle } from '../components/ButtonSquare';
+import RouletteSvg from '../svgs/roulette.svg';
+import GithubMark from '../svgs/github-mark.svg';
+import Text, { TextStyle } from '../components/Text/Text';
 
 const MainPage: React.FC = () => {
     const navigate = useNavigate();
-    const { getLang } = useLanguage();
-    const [text, setText] = useState('');
 
     return <div className="main-container">
         <div style={{ minHeight: "70vh" }}>
             <FadeInFromDown>
                 <div style={{ height: "10vh" }}></div>
-                <div id="search-box" className="animated">
-                    <TextField children={text} onChange={t => setText(t)} apply={() => navigate("/search?" + new URLSearchParams({ query: text }))}></TextField>
-                </div>
+                <AdvanceInput submit={x => navigate("/search?query=" + buildQuery(x))}/>
             </FadeInFromDown>
             <FadeInFromDown>
                 <div style={{display: "table", margin: "0 auto" }}>

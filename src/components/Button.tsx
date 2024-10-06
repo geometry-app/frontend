@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from 'react';
-import Constants from '../Constants.tsx';
+import constants from '../constants';
 
 enum ButtonStyle {
     White,
@@ -21,23 +21,23 @@ const styles = {
             backgroundColor: '#FFF'
         },
         front: {
-            color: Constants.colors.almostBlack
+            color: constants.colors.almostBlack
         }
     },
     [ButtonStyle.Danger]: {
         back: {
-            backgroundColor: Constants.colors.negative
+            backgroundColor: constants.colors.negative
         },
         front: {
-            color: Constants.colors.almostWhite
+            color: constants.colors.almostWhite
         }
     },
     [ButtonStyle.Positive]: {
         back: {
-            backgroundColor: Constants.colors.positive
+            backgroundColor: constants.colors.positive
         },
         front: {
-            color: Constants.colors.almostWhite
+            color: constants.colors.almostWhite
         }
     }
 }

@@ -1,12 +1,11 @@
 import React, {useState} from "react";
-import {Slider} from "../Slider.tsx";
-import Text, {TextStyle} from "../Text.tsx";
-import {Action} from "../../dotNetFeatures.tsx";
+import { Slider } from "../Slider";
+import Text, { TextStyle } from "../Text/Text";
 
 export interface IRouletteSliderProps {
     icon: string,
     init: number,
-    onChange?: Action<number>
+    onChange?: (value: number) => void
 }
 
 export const RouletteSlider: React.FC<IRouletteSliderProps> = (p) => {

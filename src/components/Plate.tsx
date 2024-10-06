@@ -1,13 +1,12 @@
 import React from 'react'
-import { DefaultProp } from '../Utils/DefaultProp'
+import { IHaveChild } from '../common/IHaveChild';
 
 export enum PlateStyle {
     Default,
     Simple
 }
 
-export interface IPlateProps {
-    children: React.ReactNode,
+export interface IPlateProps extends IHaveChild {
     style?: PlateStyle,
     center?: boolean
 }

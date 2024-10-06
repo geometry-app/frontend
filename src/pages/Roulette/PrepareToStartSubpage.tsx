@@ -1,8 +1,8 @@
 import React from "react";
-import {Plate, PlateStyle} from "../../components/Plate.tsx";
-import Text, {TextStyle} from "../../components/Text.tsx";
-import {Button, ButtonStyle} from "../../components/Button.tsx";
-import {RouletteState, useRoulette} from "../../contexts/RouletteContext.tsx";
+import {Plate, PlateStyle} from "../../components/Plate";
+import Text, {TextStyle} from "../../components/Text/Text";
+import {Button, ButtonStyle} from "../../components/Button";
+import { useRoulette } from "../../context/RouletteContext";
 
 export const PrepareToStartSubpage: React.FC = () => {
     const roulette = useRoulette();

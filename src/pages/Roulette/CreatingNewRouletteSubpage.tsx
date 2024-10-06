@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {Button, ButtonStyle} from '../../components/Button.tsx';
-import {useRoulette} from '../../contexts/RouletteContext.tsx';
-import Text, {TextStyle} from '../../components/Text.tsx';
-import {TextField} from '../../components/TextField.tsx';
-import {Plate, PlateStyle} from "../../components/Plate.tsx";
-import {ChallengeSettingsComponent} from "../../components/Roulette/ChallengeSettingsComponent.tsx";
+import {Button, ButtonStyle} from '../../components/Button';
+import { useRoulette } from '../../context/RouletteContext';
+import { Plate, PlateStyle } from '../../components/Plate';
+import Text, { TextStyle } from '../../components/Text/Text';
+import { TextField } from '../../components/TextField';
+import { ChallengeSettingsComponent } from '../../components/Roulette/ChallengeSettingsComponent';
 
 interface ICreatingProps {
 
@@ -41,7 +41,6 @@ export const CreatingNewRouletteSubpage: React.FC<ICreatingProps> = (p) => {
             else
                 setWarn(true);
         }} filter={e => validateName.test(e)}></TextField>
-
 
         {type !== "impossible_list" && type !== "auto" && type !== "shitty" && <Plate style={PlateStyle.Simple}>
             <Text style={TextStyle.Default}>Select Game Server</Text>

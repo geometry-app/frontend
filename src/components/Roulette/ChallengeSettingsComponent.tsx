@@ -1,18 +1,16 @@
 import React, {useEffect, useState} from "react";
-import {Plate, PlateStyle} from "../Plate.tsx";
-import Text, {TextStyle} from "../Text.tsx";
-import {RouletteSlider} from "./RouletteSlider.tsx";
-import {IDemonWeights} from "../../contexts/RouletteContext.tsx";
-import {get} from "../../Backbone.tsx";
-import {Action} from "../../dotNetFeatures.tsx";
-import { ContentPath } from "../../Constants.tsx";
+import { IDemonWeights } from "../../services/roulette/models";
+import { get } from "../../server/Backbone";
+import { Plate, PlateStyle } from "../Plate";
+import Text, { TextStyle } from "../Text/Text";
+import { RouletteSlider } from "./RouletteSlider";
 
 interface IRouletteBalanceResponse {
     weights: IDemonWeights
 }
 
 export interface IRouletteBalanceProps {
-    onChange: Action<IDemonWeights>
+    onChange: (value: IDemonWeights) => void
 }
 
 export const ChallengeSettingsComponent: React.FC<IRouletteBalanceProps> = p => {

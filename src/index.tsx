@@ -1,19 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
+import { get } from './server/Backbone';
 import './index.css';
-import App from './App.tsx';
-import { get } from './Backbone.tsx';
+import App from './App';
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
+import { Buffer } from 'buffer';
+window.Buffer = Buffer;
+
+const root = ReactDOM.createRoot(document.getElementById('root')!);
+
+root.render(<App />);
 
 interface IBackendVersionResponse {
-  version: string,
-  environment: string
+    version: string,
+    environment: string
 }
 
 get<IBackendVersionResponse>("version").then(x => {
-  console.info(`backend version: ${x?.version} (${x?.environment})`);
+    console.info(`backend version: ${x?.version} (${x?.environment})`);
 });

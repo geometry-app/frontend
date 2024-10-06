@@ -1,10 +1,10 @@
 import React from 'react';
-import {IRoulettePreview} from '../../server/Contracts.tsx';
-import {Plate} from '../Plate.tsx';
-import {useRoulette} from '../../contexts/RouletteContext.tsx';
-import Text, {TextStyle} from "../Text.tsx";
-import {ReactComponent as CrownSvg} from '../../svgs/crown.svg';
-import {ReactComponent as GlobalSvg} from '../../svgs/global.svg';
+import CrownSvg from '../../svgs/crown.svg';
+import GlobalSvg from '../../svgs/global.svg';
+import { useRoulette } from '../../context/RouletteContext';
+import { Plate } from '../Plate';
+import Text, { TextStyle } from '../Text/Text';
+import { IRoulettePreview } from '../../services/roulette/models';
 
 interface IRouletteItemProps {
     roulette: IRoulettePreview
