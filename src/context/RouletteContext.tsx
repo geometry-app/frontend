@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { get, post } from '../server/Backbone';
 import { IHaveChild } from '../common/IHaveChild';
-import { SearchItem } from '../services/search/models';
+import { QueryRequest, SearchItem } from '../services/search/models';
 
 enum RouletteState {
     Main,
@@ -46,19 +46,31 @@ interface IRouletteSession {
     progress: IProgress[]
 }
 
-export interface IDemonWeights {
-    easyDemon: number,
-    mediumDemon: number,
-    hardDemon: number,
-    insaneDemon: number,
-    extremeDemon: number
+export interface IBalance {
+    weights: IRouletteLevelWeights,
+    total: number
+}
+
+export interface IRouletteLevelWeights {
+    auto?: number | undefined,
+    undef?: number | undefined,
+    easy?: number | undefined,
+    normal?: number | undefined,
+    hard?: number | undefined,
+    harder?: number | undefined,
+    insane?: number | undefined,
+    easyDemon?: number | undefined,
+    mediumDemon?: number | undefined,
+    hardDemon?: number | undefined,
+    insaneDemon?: number | undefined,
+    extremeDemon?: number | undefined,
 }
 
 interface ICreateSessionRequest {
     type: string,
     name: string,
-    server: string,
-    weights: IDemonWeights
+    weights: IRouletteLevelWeights,
+    request: QueryRequest
 }
 
 interface IRouletteContext {
@@ -71,7 +83,7 @@ interface IRouletteContext {
     // startNew(): void,
     open(id: string): void,
     goHome(): void,
-    create(name: string, type: string, server: string, weights: IDemonWeights): Promise<boolean>,
+    create(name: string, weights: IRouletteLevelWeights, request: QueryRequest): Promise<boolean>,
     getRoulette(): IRoulette,
     setPublished(id: string): void,
     addRouletteToMe(): void
@@ -307,12 +319,12 @@ const RouletteProvider: React.FC<IHaveChild> = (p) => {
         });
     }
 
-    const create = async (name: string, type: string, server: string, weights: IDemonWeights): Promise<boolean> => {
+    const create = async (name: string, weights: IRouletteLevelWeights, request: QueryRequest): Promise<boolean> => {
         return await post<IRouletteSession, ICreateSessionRequest>('roulette', {
             name,
-            type,
-            server,
-            weights
+            type: "Advance",
+            weights,
+            request
         }, {
             "sessionId": getSession()
         })

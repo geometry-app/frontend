@@ -4,19 +4,17 @@ import Text, { TextStyle } from "../Text/Text";
 
 export interface IRouletteSliderProps {
     icon: string,
-    init: number,
+    init?: number | undefined,
     onChange?: (value: number) => void
 }
 
 export const RouletteSlider: React.FC<IRouletteSliderProps> = (p) => {
-    const [value, setValue] = useState(p.init);
     return <div style={{display: "grid", gridTemplateColumns: "50px auto 50px", gap: "20px", alignItems: "center"}}>
         <img src={p.icon} width={50}/>
-        <Slider init={value} min={0} max={1} step={0.01} onChange={e => {
-            setValue(e);
+        <Slider disabled={p.init == undefined} init={p.init ?? 0} min={0} max={1} step={0.01} onChange={e => {
             if (p.onChange)
                 p.onChange(e);
         }}/>
-        <Text style={TextStyle.Default}>{value}</Text>
+        <Text style={TextStyle.Default}>{p.init ?? 0}</Text>
     </div>
 }

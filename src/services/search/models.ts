@@ -4,8 +4,8 @@
 import { HighlightedString, LengthType } from "../models"
 
 export const enum FilterType {
-    Term,
-    Number
+    Term,  // is, not
+    Number // more than, less than, is, not
 }
 
 export interface IFilterDefinition {
@@ -31,6 +31,12 @@ export interface Filter {
     n: string,
     v: string,
     o: FilterOperator
+}
+
+export interface PartialFilter {
+    n: string,
+    o?: FilterOperator | undefined
+    v?: string | undefined,
 }
 
 export interface QueryRequest {
@@ -69,4 +75,11 @@ export interface SearchItem extends PreviewEntity {
     notFound: string[],
     likes: number,
     length: LengthType,
+}
+
+// autocomplete
+
+export interface AutocompleteResult {
+    base: string,
+    additional: string[]
 }

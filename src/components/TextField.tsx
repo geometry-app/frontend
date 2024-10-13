@@ -24,7 +24,7 @@ const TextField: React.FC<ITextFieldProps> = p => {
                         p.onChange(event.target.value)
                     setState(event.target.value)
                 }}
-                onKeyPress={e => {
+                onKeyDown={e => {
                     if (p.filter && !p.filter(state))
                         return;
                     p.apply && e.key === 'Enter' && p.apply(state)

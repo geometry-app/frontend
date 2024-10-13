@@ -20,7 +20,13 @@ export const MainRouletteSubpage: React.FC<IMainRouletteSubpageProps> = () => {
     useEffect(() => {
         get<IRoulettePreview[]>("roulette/sessions", {
             'sessionId': `${localStorage.getItem("roulette/sessionId")}`
-        }).then(x => x ? setRoulettes(x) : console.error('can not get list of roulettes'));
+        })
+            .then(x => {
+                if (!x)
+                    return;
+                x.sort((a, b) => a.createDt > b.createDt ? -1 : 1);
+                setRoulettes(x);
+            });
     }, []);
 
     const left: CSSProperties = {
@@ -41,10 +47,9 @@ export const MainRouletteSubpage: React.FC<IMainRouletteSubpageProps> = () => {
         </Plate>
         <img src={`/images/fire_wheel.png`} width="30%" style={{marginLeft: "20%", marginRight: "20%"}}></img>
         <Button text='Take Me Home' centered={true} onClick={e => navigate("/")}></Button>
+        <Button text='Create a new roulette' style={ButtonStyle.Positive} centered={true} onClick={e => roulette.start()}></Button>
         <div style={{textAlign: "start"}}>
             {roulettes && roulettes.map(x => <RouletteItem roulette={x} />)}
         </div>
-
-        <Button text='Create a new roulette' style={ButtonStyle.Positive} centered={true} onClick={e => roulette.start()}></Button>
     </Plate>
 }

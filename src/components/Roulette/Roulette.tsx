@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import { HighlightedString } from '../../services/models';
 
 export interface IRouletteSegment {
@@ -23,7 +23,6 @@ const Roulette: React.FC<IRouletteProps> = p => {
     const randSeconds = 5 + Math.random() * 3;
     const rand90 = Math.floor(Math.random() * 90);
     const t = `translate(120, 120) rotate(${rand360}deg)`;
-    console.log(t)
     const style: CSSProperties = {
         transform: `translate(1200px, 1200px) rotate(${rand360}deg)`,
         animation: 'roulette_spin',
@@ -31,7 +30,8 @@ const Roulette: React.FC<IRouletteProps> = p => {
         animationDuration: `${randSeconds}s`,
         animationFillMode: 'forwards'
     };
-    const content = <svg xmlns="http://www.w3.org/2000/svg" width={p.radius * 2} height={p.radius * 2} viewBox="0 0 2400 2400">
+
+    const content = <svg key={p.segments[0].text?.items[0].value} xmlns="http://www.w3.org/2000/svg" width={p.radius * 2} height={p.radius * 2} viewBox="0 0 2400 2400">
         <style>
             {
                 `@keyframes roulette_spin {
@@ -46,7 +46,7 @@ const Roulette: React.FC<IRouletteProps> = p => {
         </style>
         <style>
             {
-            `.flame-gradient {
+                `.flame-gradient {
                 fill: url(#flame)
             }
             
@@ -59,7 +59,7 @@ const Roulette: React.FC<IRouletteProps> = p => {
         <defs>
             <radialGradient id="flame" >
                 <stop offset="0%" stop-color="#ffc982" />
-                <stop offset="80%" stop-color="#fdd39d"/>
+                <stop offset="80%" stop-color="#fdd39d" />
                 <stop offset="95%" stop-color="#ffefd8" />
                 <stop offset="100%" stop-color="#ffffff" />
             </radialGradient>

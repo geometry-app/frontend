@@ -1,6 +1,6 @@
 const { NODE_ENV } = process.env;
 
-const GEOMETRY_BASE_URL = NODE_ENV === "development" ? "http://localhost:8080/api" : "https://geometrydash.ru/api";
+const GEOMETRY_BASE_URL = NODE_ENV === "development" ? "http://localhost:9090/api" : "https://geometrydash.ru/api";
 console.info(`backbone base url: ${GEOMETRY_BASE_URL}`);
 if (!GEOMETRY_BASE_URL)
     throw new Error("base url 'GEOMETRY_BASE_URL' is not set");

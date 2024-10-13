@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { RouletteState, useRoulette } from '../context/RouletteContext';
 import { IRouletteSegment, Roulette } from '../components/Roulette/Roulette';
 import { getDemonDifficultyImage } from '../common/LevelHelper';
@@ -15,13 +15,8 @@ import { FinishRouletteSubpage } from './Roulette/FinishedRouletteSubpage';
 import { NotFoundSubpage } from './Roulette/NotFoundSubpage';
 import { PrepareToStartSubpage } from './Roulette/PrepareToStartSubpage';
 
-enum ViewRouletteState {
-    Rolling,
-    Idle
-}
-
 const RoulettePage: React.FC = () => {
-    const [viewState, setViewState] = useState<ViewRouletteState>(ViewRouletteState.Rolling);
+    const [viewState, setViewState] = useState<number>(1);
     console.debug("VIEW STATE: " + viewState);
 
     const roulette = useRoulette();
@@ -59,34 +54,40 @@ const RoulettePage: React.FC = () => {
     };
 
     const tryRolling = () => {
-        if (viewState == ViewRouletteState.Rolling) {
-            let rollManager = {"stop": false};
-            return <>
-                <Roulette radius={360} manager={rollManager} segments={segments} onComplite={e => setViewState(ViewRouletteState.Idle)}></Roulette>
-                <Button text='Skip'
-                        centered={true}
-                        onClick={e => {
+        let rollManager = { "stop": false };
+        return <>
+            <Roulette radius={360} manager={rollManager} segments={segments} onComplite={e => { }}></Roulette>
+            <Button text='Skip'
+                centered={true}
+                onClick={e => {
                     rollManager.stop = true;
-                    setViewState(ViewRouletteState.Idle)
                 }}></Button>
-            </>
-        }
+        </>
     }
 
     function playing() {
         return (
             <div>
-                <Text style={TextStyle.MainHeader}>Roulette "{roulette.getRoulette().name}"</Text>
-                {viewState == ViewRouletteState.Rolling && tryRolling()}
-                {viewState == ViewRouletteState.Idle && <>
+                <div style={{ position: "relative", textAlign: "center", width: "100%" }}>
+                    <div style={{ position: 'absolute', width: "100%", zIndex: 3, marginTop: "8em" }}>
+                        <h1 className='roulette-gradient-text2'>{roulette.getRoulette().name}</h1>
+                    </div>
+                    <div style={{ position: 'absolute', width: "100%", zIndex: 3, marginTop: "8em" }}>
+                        <h1 className='roulette-gradient-text'>{roulette.getRoulette().name}</h1>
+                    </div>
+                </div>
+                <div style={{ marginTop: "-8em" }}>
+                    {tryRolling()}
+                </div>
+                {<>
                     <Button text='Take Me Home' onClick={e => navigate("/")} centered={true}></Button>
                     <TextField
                         hint={`${toDefaultText(roulette.getNext()?.levels[0].name)} progress (at least ${(roulette.getProgress(0, true)?.progress ?? 0) + 1}%)`}
                         filter={e => Number(e) > (roulette.getProgress(0, true)?.progress ?? 0) && Number(e) <= 100}
                         apply={e => {
                             roulette.setNextProgress(Number(e));
-                            setViewState(ViewRouletteState.Rolling);
-                    }}>{`${(roulette.getProgress(0, true)?.progress ?? 0) + 1}`}</TextField>
+                            setViewState(state + 1);
+                        }}>{`${(roulette.getProgress(0, true)?.progress ?? 0) + 1}`}</TextField>
                     <Level
                         level={roulette.getNext()?.levels[0]!}
                     />
@@ -97,7 +98,7 @@ const RoulettePage: React.FC = () => {
                         <Level
                             level={x.levels[0]}
                             percent={roulette.getProgress(i, true)?.progress}
-                            ></Level>
+                        ></Level>
                     </div>;
                     return res;
                 })}

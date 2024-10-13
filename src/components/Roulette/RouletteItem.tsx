@@ -5,6 +5,9 @@ import { useRoulette } from '../../context/RouletteContext';
 import { Plate } from '../Plate';
 import Text, { TextStyle } from '../Text/Text';
 import { IRoulettePreview } from '../../services/roulette/models';
+import FilterView from '../AdvanceInput/FilterView';
+import RequestView from '../AdvanceInput/RequestView';
+import WeightsView from '../Weights/WeightsView';
 
 interface IRouletteItemProps {
     roulette: IRoulettePreview
@@ -25,10 +28,24 @@ export const RouletteItem: React.FC<IRouletteItemProps> = (p) => {
                 <Text style={TextStyle.MainHeader}>{p.roulette.name ?? "unnamed"}</Text>
             </div>
 
-            <div className={"ec"}>
-                <Text style={TextStyle.Additional}>{p.roulette.type === "challenge" ? "Challenge" : "Normal"}</Text>
+            {!p.roulette.request &&
+                <div className={"ec"}>
+                    <Text style={TextStyle.Additional}>{p.roulette.type === "challenge" ? "Challenge" : "Normal"}</Text>
+                </div>
+            }
+            {p.roulette.request &&
+                <div style={{marginTop: "1em"}}>
+                    <RequestView request={p.roulette.request} />
+                </div>
+            }
+            {p.roulette.weights &&
+                <div style={{marginTop: "1em"}}>
+                    <WeightsView weights={p.roulette.weights} />
+                </div>
+            }
+            <div style={{marginTop: "1em"}}>
+                <Text style={TextStyle.Additional}>{new Date(p.roulette.createDt).toLocaleString()}</Text>
             </div>
-            <Text style={TextStyle.Additional}>{new Date(p.roulette.createDt).toLocaleString()}</Text>
         </Plate>
     </div>
 }

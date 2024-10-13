@@ -5,14 +5,13 @@ export interface ISliderProps {
     min: number,
     max: number,
     step: number,
+    disabled?: boolean | false,
     onChange?: (value: number) => void
 }
 
 export const Slider: React.FC<ISliderProps> = p => {
-    const [value, setValue] = useState(p.init);
     return <div>
-        <input type={"range"} min={p.min.toString()} max={p.max.toString()} step={p.step.toString()} value={value} onChange={e => {
-            setValue(Number(e.target.value));
+        <input disabled={p.disabled} type={"range"} min={p.min.toString()} max={p.max.toString()} step={p.step.toString()} value={p.init} onChange={e => {
             if (p.onChange)
                 p.onChange(Number(e.target.value))
         }}/>

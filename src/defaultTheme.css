@@ -23,7 +23,7 @@
 }
 
 .transitioned {
-    transition: ease all .2s;
+    transition: ease all .15s;
 }
 
 .shadowed {
@@ -136,4 +136,8 @@ input {
 
 .border-red:focus-within {
     border: 2px solid #FF9EA2;
+}
+
+.ppad {
+    padding: 1em;
 }

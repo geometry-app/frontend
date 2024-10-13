@@ -1,0 +1,21 @@
+.tag {
+    margin-right: 8px;
+    border-radius: 6px;
+    background-color: rgb(236, 238, 241);
+    color: #111;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 4px;
+    padding-bottom: 6px;
+    vertical-align: middle;
+    user-select: none;
+    cursor: pointer;
+}
+
+.tag:hover {
+    background-color: #85d2ff;
+}
+
+.tag:active {
+    background-color: #a9dfff;
+}

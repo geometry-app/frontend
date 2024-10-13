@@ -8,15 +8,17 @@ import { ButtonSquare, ButtonSquareStyle } from '../components/ButtonSquare';
 import RouletteSvg from '../svgs/roulette.svg';
 import GithubMark from '../svgs/github-mark.svg';
 import Text, { TextStyle } from '../components/Text/Text';
+import { QueryRequest } from '../services/search/models';
 
 const MainPage: React.FC = () => {
     const navigate = useNavigate();
+    const [state, setState] = useState<QueryRequest>({ f: [] });
 
     return <div className="main-container">
         <div style={{ minHeight: "70vh" }}>
             <FadeInFromDown>
                 <div style={{ height: "10vh" }}></div>
-                <AdvanceInput submit={x => navigate("/search?query=" + buildQuery(x))}/>
+                <AdvanceInput prepend={state} changed={setState} submit={x => navigate("/search?query=" + buildQuery(x))}/>
             </FadeInFromDown>
             <FadeInFromDown>
                 <div style={{display: "table", margin: "0 auto" }}>

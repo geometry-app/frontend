@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import AdvanceInput from '../components/AdvanceInput/AdvanceInput';
-import { SearchItem, SearchResult } from '../services/search/models';
+import { QueryRequest, SearchItem, SearchResult } from '../services/search/models';
 import { useSearch } from '../context/SearchContext';
 import { buildQuery, parseQuery } from '../services/search/QueryBuilder';
 import Level from '../components/Level';
@@ -21,6 +21,7 @@ const SearchPage: React.FC = () => {
         isLucky: searchParams.get("lucky") === "1",
         page: Number.parseInt(searchParams.get("page") ?? "0")
     });
+    const [input, setInput] = useState<QueryRequest>(state.query);
     const [result, setResult] = useState<SearchResult | undefined>();
 
     useEffect(() => {
@@ -47,17 +48,18 @@ const SearchPage: React.FC = () => {
     return <div className="main-container">
         <div style={{ minHeight: "70vh" }}>
             <FadeInFromDown>
-                <div style={{display: "grid", gridTemplateColumns: "60px auto"}}>
+                <div style={{ display: "grid", gridTemplateColumns: "60px auto" }}>
                     <ButtonSquare
                         style={ButtonSquareStyle.Simple}
-                        icon={<BackSvg stroke='#000' width={40} height={40} style={{display: "block", margin: 'auto'}}></BackSvg>}
+                        icon={<BackSvg stroke='#000' width={40} height={40} style={{ display: "block", margin: 'auto' }}></BackSvg>}
                         onClick={e => navigate('/')}
                     />
-                    <AdvanceInput submit={x => setState({
-                        isLucky: state.isLucky,
-                        page: state.page,
-                        query: x
-                    })} prepend={state.query} />
+                    <AdvanceInput changed={setInput}
+                        submit={x => setState({
+                            isLucky: state.isLucky,
+                            page: state.page,
+                            query: x
+                        })} prepend={input} />
                 </div>
             </FadeInFromDown>
             <div style={{ display: 'grid', gap: "12px", margin: "32px 16px 0 16px", wordBreak: 'break-all' }}>

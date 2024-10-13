@@ -15,13 +15,13 @@ const App: React.FC = () => {
   return <Router>
     <LagnuageProvider>
       <SettingsProvider>
-          <SearchProvider>
-            <Routes>
-              <Route path="/search" element={<SearchPage />}></Route>
-              <Route path="/roulette" element={<RouletteProvider><RoulettePage /></RouletteProvider>}></Route>
-              <Route path="/" element={<MainPage />}></Route>
-            </Routes>
-          </SearchProvider>
+        <SearchProvider>
+          <Routes>
+            <Route path="/search" element={<SearchPage />}></Route>
+            <Route path="/roulette" element={<RouletteProvider><RoulettePage /></RouletteProvider>}></Route>
+            <Route path="/" element={<MainPage />}></Route>
+          </Routes>
+        </SearchProvider>
       </SettingsProvider>
     </LagnuageProvider>
   </Router>;
