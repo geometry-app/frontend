@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import constants from "../constants";
 
 interface ITextFieldProps {
-    hint?: string,
+    hint?: ReactNode,
     children?: string,
     onChange?: (value: string) => void,
     filter?: (value: string) => boolean

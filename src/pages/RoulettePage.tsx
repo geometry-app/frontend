@@ -14,9 +14,11 @@ import { CreatingNewRouletteSubpage } from './Roulette/CreatingNewRouletteSubpag
 import { FinishRouletteSubpage } from './Roulette/FinishedRouletteSubpage';
 import { NotFoundSubpage } from './Roulette/NotFoundSubpage';
 import { PrepareToStartSubpage } from './Roulette/PrepareToStartSubpage';
+import { LengthType } from '../services/models';
 
 const RoulettePage: React.FC = () => {
     const [viewState, setViewState] = useState<number>(1);
+    const [stopManager, setStopManager] = useState({stop: false});
     console.debug("VIEW STATE: " + viewState);
 
     const roulette = useRoulette();
@@ -54,13 +56,20 @@ const RoulettePage: React.FC = () => {
     };
 
     const tryRolling = () => {
-        let rollManager = { "stop": false };
         return <>
-            <Roulette radius={360} manager={rollManager} segments={segments} onComplite={e => { }}></Roulette>
+            <Roulette radius={360} manager={stopManager} segments={segments} onComplite={e => {
+                if (stopManager.stop)
+                    return;
+                stopManager.stop = true;
+                setViewState(0);
+            }}></Roulette>
             <Button text='Skip'
                 centered={true}
                 onClick={e => {
-                    rollManager.stop = true;
+                    if (stopManager.stop)
+                        return;
+                    stopManager.stop = true;
+                    setViewState(0);
                 }}></Button>
         </>
     }
@@ -81,16 +90,42 @@ const RoulettePage: React.FC = () => {
                 </div>
                 {<>
                     <Button text='Take Me Home' onClick={e => navigate("/")} centered={true}></Button>
-                    <TextField
-                        hint={`${toDefaultText(roulette.getNext()?.levels[0].name)} progress (at least ${(roulette.getProgress(0, true)?.progress ?? 0) + 1}%)`}
+                    <TextField key={viewState}
+                        hint={`${viewState == 0 ? toDefaultText(roulette.getNext()?.levels[0].name) : "***** ****"} progress (at least ${(roulette.getProgress(0, true)?.progress ?? 0) + 1}%)`}
                         filter={e => Number(e) > (roulette.getProgress(0, true)?.progress ?? 0) && Number(e) <= 100}
                         apply={e => {
                             roulette.setNextProgress(Number(e));
-                            setViewState(state + 1);
+                            setViewState(1);
+                            setStopManager({stop: false});
                         }}>{`${(roulette.getProgress(0, true)?.progress ?? 0) + 1}`}</TextField>
-                    <Level
-                        level={roulette.getNext()?.levels[0]!}
-                    />
+                    {viewState == 0 &&
+                        <div>
+                            <Level
+                                level={roulette.getNext()?.levels[0]!}
+                            />
+                        </div>
+                    }
+                    {
+                        viewState == 1 &&
+                        <div style={{filter: "blur(2em)"}}>
+                            <Level level={{
+                                name: {
+                                    items: [{ value: "***** NO NAMED *****", highlighted: false }]
+                                },
+                                difficulty: 0,
+                                difficultyIcon: 0,
+                                demonDifficulty: 0,
+                                description: { items: [{ value: "why did you see this text... there is nothing to seee....", highlighted: false }] },
+                                id: 123456789,
+                                isDemon: false,
+                                length: LengthType.Tiny,
+                                likes: 100500,
+                                type: 1,
+                                notFound: [],
+                                server: "geometrydash"
+                            }} />
+                        </div>
+                    }
                 </>
                 }
                 {roulette.getAvaliableList()?.reverse().map((x, i) => {

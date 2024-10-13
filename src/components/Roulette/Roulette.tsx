@@ -1,5 +1,6 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
 import { HighlightedString } from '../../services/models';
+import SeededRandomUtilities from 'seeded-random-utilities';
 
 export interface IRouletteSegment {
     text?: HighlightedString,
@@ -18,10 +19,12 @@ export interface RollManager {
 }
 
 const Roulette: React.FC<IRouletteProps> = p => {
-    const rand360 = Math.floor(Math.random() * 360);
-    const randSpins = 3 + Math.floor(Math.random() * 2);
-    const randSeconds = 5 + Math.random() * 3;
-    const rand90 = Math.floor(Math.random() * 90);
+    const name = p.segments[0].text?.items[0].value;
+    const rand = new SeededRandomUtilities(name);
+    const rand360 = Math.floor((rand.getRandomIntegar(65535, 0) / 65535) * 360);
+    const randSpins = 3 + Math.floor((rand.getRandomIntegar(65535, 0) / 65535) * 2);
+    const randSeconds = 5 + (rand.getRandomIntegar(65535, 0) / 65535) * 3;
+    const rand90 = Math.floor((rand.getRandomIntegar(65535, 0) / 65535) * 90);
     const t = `translate(120, 120) rotate(${rand360}deg)`;
     const style: CSSProperties = {
         transform: `translate(1200px, 1200px) rotate(${rand360}deg)`,
@@ -31,7 +34,7 @@ const Roulette: React.FC<IRouletteProps> = p => {
         animationFillMode: 'forwards'
     };
 
-    const content = <svg key={p.segments[0].text?.items[0].value} xmlns="http://www.w3.org/2000/svg" width={p.radius * 2} height={p.radius * 2} viewBox="0 0 2400 2400">
+    const content = <svg key={name} xmlns="http://www.w3.org/2000/svg" width={p.radius * 2} height={p.radius * 2} viewBox="0 0 2400 2400">
         <style>
             {
                 `@keyframes roulette_spin {
